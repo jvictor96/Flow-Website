@@ -1,0 +1,28 @@
+body {
+    margin: 0px;
+}
+
+td {
+    width: min-content;
+    text-align: center;
+}
+
+.critica {
+    margin: 0px;
+}
+
+a {
+color: black;
+}
+
+p {
+    margin-bottom: 0px;
+}
+
+.botao {
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 16px;
+}

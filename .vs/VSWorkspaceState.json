@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\controllers",
+    "\\src\\middlewares",
+    "\\src\\models",
+    "\\src\\views"
+  ],
+  "SelectedNode": "\\src\\controllers\\flowController.js",
+  "PreviewInSolutionExplorer": false
+}
