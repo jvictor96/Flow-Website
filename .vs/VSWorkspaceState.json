@@ -4,10 +4,10 @@
     "\\public",
     "\\src",
     "\\src\\controllers",
-    "\\src\\middlewares",
     "\\src\\models",
-    "\\src\\views"
+    "\\src\\views",
+    "\\src\\views\\includes"
   ],
-  "SelectedNode": "\\src\\controllers\\flowController.js",
+  "SelectedNode": "\\public\\leftAjax.js",
   "PreviewInSolutionExplorer": false
 }

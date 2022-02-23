@@ -1,19 +1,30 @@
 <html>
 <head>
+<meta charset="utf-8" />
 <title>Home</title>
 <link href="e.css" rel="stylesheet" type="text/css">
+<link href="grid.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
+<div style="margin: 0px; background: #999; width: 100%; height: 80px;">
+<h2>Olá <%= usuario.nome %> | <a href="/logOut">Desconectar</a> </h2>
+</div>
+
 <center>
-<h1>Flow</h1>
-<h2>Grupo <%- grupo %></h2>
-<h2>Time direito</h2>
+
+<%- include("includes/flash") %>
+
+<div class="pedidos">
+<p class="pedido"></p>
+</div>
+
+<input type="text" id="csrf" name="_csrf" value="<%= csrfToken %>" hidden>
 
 </center>
 
-<script src="entradaAjax.js">
+<script src="rightAjax.js">
 </script>
 
 </body>

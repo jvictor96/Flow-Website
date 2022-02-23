@@ -5,7 +5,9 @@ exports.homePage = (req, res) => {
         res.render("home");
     } else {
         if ("usuario" in req.session) {
-            res.redirect("/pannel");
+            req.session.usuario.tipo == "gerente" ?
+                res.redirect("/pannel") :
+                res.redirect("/matchPannel");
         } else {
             res.render("home");
         }
@@ -17,7 +19,7 @@ exports.checkName = async (req, res) => {
     let pesquisa = [];
 
 
-    await usuario.find({ nome: inputs.nome }).then((dados) => { pesquisa = dados });
+    await usuario.find({ login: inputs.login }).then((dados) => { pesquisa = dados });
 
     if (pesquisa.length == 0) {
         res.send("OK");
@@ -27,34 +29,54 @@ exports.checkName = async (req, res) => {
 
 }
 
+exports.matchUp = async (req, res) => {
+    const inputs = req.body;
+    let pesquisa = [];
+
+    await grupo.find({ nome: inputs.login, senha: inputs.senha }).then((dados) => { pesquisa = dados });
+
+    if (pesquisa.length == 0) {
+        req.flash("errors", "Não há grupo com o nome de usuário e senha fornecidos");
+        res.redirect("/");
+    } else {
+        req.session.grupo = pesquisa;
+        req.session.usuario = [{ nome: "null", lugar:"null", tipo:"convidado"}];
+        req.session.save(() => {
+            res.redirect("/matchPannel");
+        });
+    }
+
+}
+
 exports.tryLogin = async (req, res) => {
     const inputs = req.body;
     let pesquisa = [];
 
-    console.log(inputs);
-    await usuario.find({ nome: inputs.nome, senha: inputs.senha }).then((dados) => { pesquisa = dados });
+    await usuario.find({ login: inputs.login, senha: inputs.senha }).then((dados) => { pesquisa = dados });
 
     if (pesquisa.length == 0) {
         req.flash("errors", "Nome de usuário e senha não coincidem");
         res.redirect("/");
     } else {
-        req.session.usuario = pesquisa[0];
+        req.session.usuario = pesquisa;
+        req.session.usuario.tipo = "gerente";
+        await grupo.find({ dono: inputs.login }).then((dados) => { req.session.grupo = dados });
+        req.session.grupo.length > 0 ? null : req.flash("errors", "Atenção, seu grupo ainda não foi criado!");
         req.session.save(() => {
-            res.redirect("back");
+            res.redirect("/pannel");
         });
-        console.log("a");
     }
 }
 
 exports.logOut = async (req, res) => {
-    req.session.destroy();
+    await req.session.destroy();
     res.redirect("/");
 }
 
 exports.tryRegister = async (req, res) => {
     const inputs = req.body;
 
-    await usuario.create({ nome: inputs.nome, senha: inputs.senha });
+    await usuario.create({ login: inputs.login, senha: inputs.senha, sexo: inputs.sexo, nome: inputs.nome});
 
     res.send("OK");
 }

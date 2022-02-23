@@ -1,8 +1,9 @@
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
 <title>Home</title>
 <link href="e.css" rel="stylesheet" type="text/css">
+<link href="grid.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -13,9 +14,69 @@
 
 <center>
 
-<h2>Produtos | Acesso Rápido | Estatísticas</h2>
+<%- include("includes/flash") %>
+
+<h2> <span onclick="escolherProdutos();" class="label escolhaProdutos"> Produtos </span> |
+<span onclick="escolherConfig();" class="label escolhaConfig"> Dados do Grupo </span> |
+<span onclick="escolherStats();" class="label escolhaStats"> Estatísticas </span></h2>
+<!----------------------------------------------------------------------------------------------------------------->
+<!---------------                                                                                 ----------------->
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="produtosBox grid-container">
+<div class="grid-cell cabecalho"> &nbsp </div>
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="grid-cell cabecalho" style="grid-column: 2/4">
+<p class="nivel" style="margin:0px;">Categorias</p>
+<p class="submenu" style="margin:0px; font-weight: bold;" hidden>
+<span onclick="nivelAnterior();" class="label escolhaAnterior"> Voltar </span> |
+<span onclick="editar()" class="label escolhaEditar"> Editar </span> |
+<span onclick="apagarProduto();" class="label escolhaApagar"> Apagar </span>
+</p>
+</div>
+<!----------------------------------------------------------------------------------------------------------------->
+<div onclick="" class="grid-cell cabecalho"> &nbsp </div>
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="grid-cell novoProduto" id="bn" onClick="abreJanela()" onMouseOver="arredondar(0,'bn')" onMouseOut="restaurar('bn')">
+Novo Item
+</div> 
+</div>
+<!----------------------------------------------------------------------------------------------------------------->
+<!-------------                                                                                      -------------->
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="itemPopUp" hidden>
+<form>
+	<p>Nova Gravação</p>
+	<p>Nome: <input type="text" name="Produto" class="campoProduto campo" onChange="checkProduct()"></p>
+	<p>Preço: <input type="text" name="Preco" class="campoPreco campo" onChange="checkProduct()"></p>
+	<input type="button" class="botao" onClick="gravarProduto()" value="Salvar">
+	<p class="criticaProduto" style="margin:0px;" hidden></p>
+	<p onclick="fechaJanela();" style="cursor: pointer;">Canelar</p>
+</form>
+</div>
+<!----------------------------------------------------------------------------------------------------------------->
+<!-------------                                                                                      -------------->
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="config">
+<p>Nome: <input type="text" name="nome" class="campoNome campo" value="<%= grupo.nome %>" onKeyUp="checkGroup()"></p>
+<p>Senha: <input type="text" name="senha" class="campoSenha campo" value="<%= grupo.senha %>" onKeyUp="checkGroup()"></p>
+<p class="criticaGrupo" style="margin:0px;"></p>
+<input type="text" id="csrf" name="_csrf" value="<%= csrfToken %>" hidden>
+<input type="submit" class="botao" id="botaoSubmit" value="Salvar" onclick="salvarGrupo();">
+</div>
+<!----------------------------------------------------------------------------------------------------------------->
+
+<div class="Stats">
+<h2>Em Breve</h2>
+</div>
 
 </center>
+
+<script src="painelAjax.js">
+</script>
+<script src="painelBasico.js">
+</script>
+<script src="gridEstilo.js">
+</script>
 
 </body>
 </html>

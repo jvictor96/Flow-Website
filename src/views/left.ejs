@@ -1,19 +1,62 @@
 <html>
 <head>
+<meta charset="utf-8" />
 <title>Home</title>
 <link href="e.css" rel="stylesheet" type="text/css">
+<link href="grid.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
+<div style="margin: 0px; background: #999; width: 100%; height: 80px;">
+<h2>Olá <%= usuario.nome %> | <a href="/logOut">Desconectar</a> </h2>
+</div>
+
 <center>
-<h1>Flow</h1>
-<h2>Grupo <%- grupo %></h2>
-<h2>Time esquerdo</h2>
+
+<%- include("includes/flash") %>
+
+<h2> <span onclick="escolherProdutos();" class="label escolhaProdutos"> Produtos </span> |
+<span onclick="escolherPedido();" class="label escolhaPedido"> Pedido Atual </span> |
+<span onclick="escolherCozinha();" class="label escolhaCozinha"> Cozinha </span></h2>
+<!----------------------------------------------------------------------------------------------------------------->
+<!---------------                                                                                 ----------------->
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="produtos grid-container">
+<div class="grid-cell cabecalho"> &nbsp </div>
+<div class="grid-cell cabecalho" style="grid-column: 2/4">
+<p class="nivel" style="margin:0px;">Categorias</p>
+<p>
+<span class="label escolhaAnterior" style="margin:0px; font-weight: bold;" onclick="nivelAnterior();" hidden>Voltar</span>
+<apan class="label escolhaAdicionar" style="margin:0px; font-weight: bold;" onclick="adicionarProduto();" hidden> | Adicionar</span>
+</p>
+</div>
+<div onclick="" class="grid-cell cabecalho"> &nbsp </div>
+</div>
+<!----------------------------------------------------------------------------------------------------------------->
+<!-------------                                                                                      -------------->
+<!----------------------------------------------------------------------------------------------------------------->
+<div class="pedido">
+<p class="compra"></p>
+<p class="label" onClick="salvarPedido()">Salvar Pedido</p>
+</div>
+<!----------------------------------------------------------------------------------------------------------------->
+<!-------------                                                                                      -------------->
+<!----------------------------------------------------------------------------------------------------------------->
+
+<div class="cozinhas">
+<p class="comida"></p>
+</div>
+
+<input type="text" id="csrf" name="_csrf" value="<%= csrfToken %>" hidden>
 
 </center>
 
-<script src="entradaAjax.js">
+<script src="leftAjax.js">
+</script>
+<script src="leftBasico.js">
+</script>
+<script src="gridEstilo.js">
 </script>
 
 </body>

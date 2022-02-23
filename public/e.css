@@ -11,8 +11,13 @@ td {
     margin: 0px;
 }
 
+.campo {
+    width: 250px;
+}
+
 a {
 color: black;
+text-decoration: none;
 }
 
 p {
@@ -21,6 +26,10 @@ p {
 
 .botao {
     margin-top: 10px;
+}
+
+.label {
+    cursor: pointer;
 }
 
 button {

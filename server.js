@@ -14,6 +14,7 @@ const mongoose = require("mongoose");
 
 const connStr = "mongodb+srv://jvictor96:sidarta96@cluster0.egdsy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 mongoose.connect(connStr).then(() => { app.emit("conectado"); console.log("conectado") });
+
 app.on("conectado", () => {
     app.listen(3000, () => { console.log("escutando na 3000") });
     startAllTheRest();
