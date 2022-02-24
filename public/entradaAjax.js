@@ -1,4 +1,6 @@
 document.querySelector("form").onsubmit = validate;
+getcsrf();
+let csrf = "";
 
 async function validate(event) {
     if (action == "cadastro") {
@@ -7,35 +9,17 @@ async function validate(event) {
     }
 }
 
-function checkGroup() {
-    if (action == "grupos" && document.querySelector(".campoLogin").value.length > 0 && document.querySelector(".campoSenha").value.length > 0) {
-        document.querySelector(".criticaSenha").innerHTML = "Buscando grupo...";
+function getcsrf() {
+    let xhr = new XMLHttpRequest();
 
-        let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = (data) => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            csrf = xhr.responseText;
+        }
+     };
 
-        xhr.onreadystatechange = (data) => {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                if ("Inexistente" != xhr.responseText) {
-                    a = document.createElement("a");
-                    a.setAttribute("href", xhr.responseText);
-                    a.innerHTML = "Grupo encontrado, entrar"
-                    document.querySelector(".criticaSenha").innerHTML = "";
-                    document.querySelector(".criticaSenha").appendChild(a);
-                    nomeOk = true;
-                } else {
-                    document.querySelector(".criticaSenha").innerHTML = "O grupo não foi encontrado";
-                    nomeOk = false;
-                }
-            }
-        };
-
-        userName = document.querySelector(".campoLogin").value;
-        senha = document.querySelector(".campoSenha").value;
-        csrf = document.querySelector("#csrf").value;
-        xhr.open("POST", "http://localhost:3000/checkGroup", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send("login=" + userName + "&_csrf=" + csrf + "&senha=" + senha);
-    }
+        xhr.open("GET", "http://localhost:3000/getcsrf", true);
+        xhr.send();
 }
 
 function checkName() {
@@ -45,9 +29,13 @@ function checkName() {
         let xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = (data) => {
+            if (xhr.readyState == 4) {
+                getcsrf();
+            }
             if (xhr.readyState == 4 && xhr.status == 200) {
-                if ("OK" == xhr.responseText) {
+                if ("Erro" != xhr.responseText) {
                     document.querySelector(".criticaLogin").innerHTML = "O nome de usuário escolhido está ok";
+                    document.querySelector("#csrf").value = xhr.responseText;
                     nomeOk = true;
                 } else {
                     document.querySelector(".criticaLogin").innerHTML = "O nome de usuário escolhido já existe";
@@ -57,7 +45,6 @@ function checkName() {
         };
 
         login = document.querySelector(".campoLogin").value;
-        csrf = document.querySelector("#csrf").value;
         xhr.open("POST", "http://localhost:3000/checkName", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send("login=" + login + "&_csrf=" + csrf);
@@ -78,16 +65,19 @@ function register() {
     }
 
     xhr.onreadystatechange = (data) => {
+        if (xhr.readyState == 4) {
+            getcsrf();
+        }
         if (xhr.readyState == 4 && xhr.status == 200) {
-            if ("OK" == xhr.responseText) {
+            if ("Erro" != xhr.responseText) {
                 document.querySelector(".criticaSenha").innerHTML = "O usuário foi registrado com sucesso!";
+                document.querySelector("#csrf").value = xhr.responseText;
             } else {
                 document.querySelector(".criticaSenha").innerHTML = "Lamento, ocorreu um erro na conexão";
             }
         }
     };
 
-    csrf = document.querySelector("#csrf").value;
     xhr.open("POST", "http://localhost:3000/tryRegister", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("login=" + login + "&senha=" + senha + "&nome=" + nome + "&sexo=" + sexo + "&_csrf=" + csrf);

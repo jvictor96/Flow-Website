@@ -44,7 +44,6 @@ function startAllTheRest() {
     app.use(csrv());
     app.use(flash());
 
-    app.use(middlewares.csrvMiddleware);
     app.use(middlewares.sessionMiddleware);
     app.use(middlewares.flashMsgsMiddleware);
 

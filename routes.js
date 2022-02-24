@@ -7,7 +7,7 @@ const pannelController = require("./src/controllers/pannelController");
 const leftController = require("./src/controllers/leftController");
 const rightController = require("./src/controllers/rightController");
 
-routes.get("/", homeController.homePage);
+routes.get("/home", homeController.homePage);
 routes.get("/getCsrf", mid.getCsrf);
 routes.post("/checkName", homeController.checkName);
 routes.post("/tryLogin", homeController.tryLogin);

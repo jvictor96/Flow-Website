@@ -1,12 +1,13 @@
 exports.csrvMiddleware = (req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
-    console.log("csrf = " + req.csrfToken());
+    req.session.csrfToken = res.locals.csrfToken ;
+    console.log("csrf = " + res.locals.csrfToken );
     next();
 }
 
 exports.getCsrf = (req, res) => {
-    res.send(req.csrfToken());
     console.log("csrf = " + req.csrfToken());
+    res.send(req.csrfToken());
 }
 
 exports.sessionMiddleware = (req, res, next) => {
