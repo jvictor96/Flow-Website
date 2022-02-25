@@ -2,6 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\public",
+    "\\public\\javascripts",
+    "\\public\\stylesheets",
     "\\src",
     "\\src\\controllers",
     "\\src\\middlewares",
@@ -9,6 +11,6 @@
     "\\src\\views",
     "\\src\\views\\includes"
   ],
-  "SelectedNode": "\\src\\middlewares\\globais.js",
+  "SelectedNode": "\\public\\stylesheets",
   "PreviewInSolutionExplorer": false
 }

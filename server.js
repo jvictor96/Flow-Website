@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const flash = require("connect-flash");
 const session = require("express-session");
 const mongoSeshGetter = require("connect-mongo");
+const cors = require("cors");
 
 const express = require("express");
 const app = express();
@@ -27,6 +28,24 @@ function startAllTheRest() {
             extended: true
         })
     );
+
+    corsOpt = {
+        "AllowedHeaders": [
+            "*"
+        ],
+            "AllowedMethods": [
+                "PUT",
+                "POST",
+                "GET",
+                "DELETE"
+            ],
+                "AllowedOrigins": [
+                    "http://www.example1.com"
+                ],
+                    "ExposeHeaders": []
+    }
+
+    app.use(cors(corsOpt))
 
     const sessionOptions = session({
         secret: "jvius987361!@#$VSS!@#!@523523!@#!fsdfsa1@W",
