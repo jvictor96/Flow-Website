@@ -1,6 +1,5 @@
 {
   "ExpandedNodes": [
-    "",
     "\\public",
     "\\public\\javascripts",
     "\\public\\stylesheets",
@@ -11,6 +10,5 @@
     "\\src\\views",
     "\\src\\views\\includes"
   ],
-  "SelectedNode": "\\public\\stylesheets",
   "PreviewInSolutionExplorer": false
 }

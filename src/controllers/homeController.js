@@ -2,14 +2,14 @@ const [usuario, grupo] = require("../models/usuario");
 
 exports.homePage = (req, res) => {
     if (typeof req.session === "undefined") {
-        res.render("home");
+        res.render("home", { csrfToken: req.csrfToken() });
     } else {
         if ("usuario" in req.session) {
             req.session.usuario.tipo == "gerente" ?
                 res.redirect("/pannel") :
                 res.redirect("/matchPannel");
         } else {
-            res.render("home");
+            res.render("home", { csrfToken: req.csrfToken() });
         }
     }
 }

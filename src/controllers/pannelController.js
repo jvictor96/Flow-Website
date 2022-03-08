@@ -12,12 +12,12 @@ exports.new = async (req, res, next) => {
 
 exports.pannel = async (req, res) => {
     if (typeof req.session === "undefined") {
-        res.redirect("/");
+        res.redirect("/home");
     } else {
         if ("usuario" in req.session) {
-            res.render("pannel");
+            res.render("pannel", { csrfToken: req.csrfToken() });
         } else {
-            res.redirect("/");
+            res.redirect("/home");
         }
     }
 }

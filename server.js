@@ -1,5 +1,5 @@
 const path = require("path");
-const csrv = require("csurf");
+const csrf = require("csurf");
 const helmet = require("helmet");
 const flash = require("connect-flash");
 const session = require("express-session");
@@ -12,6 +12,7 @@ const routes = require("./routes");
 const middlewares = require("./src/middlewares/globais");
 
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 const connStr = "mongodb+srv://jvictor96:sidarta96@cluster0.egdsy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 mongoose.connect(connStr).then(() => { app.emit("conectado"); console.log("conectado") });
@@ -23,11 +24,7 @@ app.on("conectado", () => {
 
 
 function startAllTheRest() {
-    app.use(
-        express.urlencoded({
-            extended: true
-        })
-    );
+    var csrfProtection = csrf({ cookie: true })
 
     corsOpt = {
         "AllowedHeaders": [
@@ -40,7 +37,7 @@ function startAllTheRest() {
                 "DELETE"
             ],
                 "AllowedOrigins": [
-                    "http://www.example1.com"
+                    "*"
                 ],
                     "ExposeHeaders": []
     }
@@ -59,8 +56,8 @@ function startAllTheRest() {
             httpOnly: true
         }
     })
+    app.use(cookieParser());
     app.use(sessionOptions);
-    app.use(csrv());
     app.use(flash());
 
     app.use(middlewares.sessionMiddleware);

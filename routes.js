@@ -1,4 +1,6 @@
 const express = require("express");
+const csrv = require("csurf");
+const bodyParser = require("body-parser");
 const routes = express.Router();
 const mid = require("./src/middlewares/globais");
 const homeController = require("./src/controllers/homeController");
@@ -7,22 +9,24 @@ const pannelController = require("./src/controllers/pannelController");
 const leftController = require("./src/controllers/leftController");
 const rightController = require("./src/controllers/rightController");
 
-routes.get("/home", homeController.homePage);
-routes.get("/getCsrf", mid.getCsrf);
-routes.post("/checkName", homeController.checkName);
-routes.post("/tryLogin", homeController.tryLogin);
-routes.post("/tryRegister", homeController.tryRegister);
-routes.post("/matchUp", homeController.matchUp);
+var csrfProtection = csrv({ cookie: true })
+var parseForm = bodyParser.urlencoded({ extended: false })
+
+routes.get("/home", csrfProtection, homeController.homePage);
+routes.post("/checkName", parseForm, csrfProtection, homeController.checkName);
+routes.post("/tryLogin", parseForm, homeController.tryLogin);
+routes.post("/tryRegister", parseForm, homeController.tryRegister);
+routes.post("/matchUp", parseForm, homeController.matchUp);
 routes.get("/logOut", homeController.logOut);
 
 //------------------------------------------------------------------------------------//
 
-routes.get("/pannel", pannelController.pannel);
-routes.get("/getProducts", pannelController.getProducts);
-routes.post("/eraseProduct", pannelController.eraseProduct);
-routes.post("/saveProduct", pannelController.saveProduct);
-routes.post("/checkProduct", pannelController.checkProduct);
-routes.post("/saveGroup", pannelController.saveGroup);
+routes.get("/pannel", csrfProtection, pannelController.pannel);
+routes.get("/getProducts", csrfProtection, pannelController.getProducts);
+routes.post("/eraseProduct", parseForm, csrfProtection, pannelController.eraseProduct);
+routes.post("/saveProduct", parseForm, csrfProtection, pannelController.saveProduct);
+routes.post("/checkProduct", parseForm, csrfProtection, pannelController.checkProduct);
+routes.post("/saveGroup", parseForm, csrfProtection, pannelController.saveGroup);
 
 //------------------------------------------------------------------------------------//
 

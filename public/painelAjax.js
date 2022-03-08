@@ -39,7 +39,7 @@ function carregarProdutos() {
     };
 
     csrf = document.querySelector("#csrf").value;
-    xhr.open("GET", "http://localhost:3000/getProducts?tipo=" + niveis[nivel], true);
+    xhr.open("GET", "/getProducts?tipo=" + niveis[nivel], true);
     xhr.send();
 }
 
@@ -93,7 +93,7 @@ function apagarProduto() {
     };
 
     csrf = document.querySelector("#csrf").value;
-    xhr.open("POST", "http://localhost:3000/eraseProduct", true);
+    xhr.open("POST", "/eraseProduct", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("categoria=" + categoria + "&produto=" + produto + "&detalhe=" + detalhe + "&_csrf=" + csrf);
 }
@@ -122,7 +122,7 @@ function gravarProduto() {
 
         csrf = document.querySelector("#csrf").value;
         preco = document.querySelector(".campoPreco").value.replace(",", ".");
-        xhr.open("POST", "http://localhost:3000/saveProduct", true);
+        xhr.open("POST", "/saveProduct", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send("categoria=" + categoria + "&produto=" + produto + "&detalhe=" + detalhe + "&preco=" + preco + "&editando=" + editando + "&_csrf=" + csrf);
     }
@@ -152,7 +152,7 @@ function checkProduct() {
         };
 
         csrf = document.querySelector("#csrf").value;
-        xhr.open("POST", "http://localhost:3000/checkProduct", true);
+        xhr.open("POST", "/checkProduct", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send("categoria=" + categoria + "&produto=" + produto + "&detalhe=" + detalhe + "&_csrf=" + csrf);
     }
