@@ -1,5 +1,6 @@
 {
   "ExpandedNodes": [
+    "",
     "\\public",
     "\\public\\javascripts",
     "\\public\\stylesheets",
@@ -10,5 +11,6 @@
     "\\src\\views",
     "\\src\\views\\includes"
   ],
+  "SelectedNode": "\\server.js",
   "PreviewInSolutionExplorer": false
 }
